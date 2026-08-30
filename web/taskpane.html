@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Model Tracer</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <h1>Model Tracer</h1>
+      <div class="header-actions">
+        <span id="status-pill" class="status-text hidden" role="status" aria-live="polite"></span>
+        <button id="shortcut-settings-btn" class="icon-btn settings-btn" type="button" title="Shortcut settings" aria-label="Shortcut settings">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.8 1h2.4l.4 1.6c.4.1.8.3 1.1.5l1.5-.7 1.2 2.1-1.2 1c.1.4.1.9 0 1.3l1.2 1-1.2 2.1-1.5-.7c-.3.2-.7.4-1.1.5L9.2 11H6.8l-.4-1.6c-.4-.1-.8-.3-1.1-.5l-1.5.7-1.2-2.1 1.2-1a5 5 0 0 1 0-1.3l-1.2-1 1.2-2.1 1.5.7c.3-.2.7-.4 1.1-.5L6.8 1Zm1.2 3.2a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4Z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <nav class="tabs tabs-three" aria-label="Model Tracer sections">
+      <button id="tab-trace" class="tab active" type="button">Trace</button>
+      <button id="tab-format" class="tab" type="button">Format</button>
+      <button id="tab-audit" class="tab" type="button">Audit</button>
+    </nav>
+
+    <section id="panel-trace" class="panel trace-panel">
+      <section class="source-section" aria-label="Trace source">
+        <div class="source-heading">
+          <span class="section-label">Source</span>
+          <button id="refresh-btn" class="icon-btn" title="Use current Excel selection" aria-label="Use current Excel selection">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.2 4.3V1.8h1.3v4.7h-4.7V5.2h2.4A4.8 4.8 0 1 0 12.7 10h1.4A6.2 6.2 0 1 1 13.2 4.3Z"/></svg>
+          </button>
+        </div>
+        <div class="source-line"><span id="source-address" class="address">—</span></div>
+        <div id="source-formula" class="formula muted">Select a cell or range in Excel</div>
+        <div id="calc-status" class="calc-status hidden">
+          <span id="calc-status-text"></span>
+          <button id="recalculate-btn" class="text-action" type="button">Recalculate</button>
+        </div>
+      </section>
+
+      <section class="trace-commands" aria-label="Trace commands">
+        <button id="explore-precedents" class="command-btn primary-command" type="button">Precedents</button>
+        <button id="explore-dependents" class="command-btn primary-command" type="button">Dependents</button>
+        <button id="formula-logic-btn" class="command-btn" type="button">Formula Logic</button>
+        <button id="calculation-area-btn" class="command-btn" type="button">Calculation Area</button>
+        <div id="api-note" class="inline-note hidden"></div>
+      </section>
+
+      <section class="analysis-workspace" aria-label="Analysis workspace">
+        <section id="explorer-card" class="analysis-view">
+          <div class="workspace-header">
+            <div class="workspace-title-row">
+              <strong id="explorer-title">No active trace</strong>
+              <span id="explorer-count" class="count-text">0</span>
+            </div>
+            <div class="actions compact-actions">
+              <button id="explorer-source-btn" class="secondary" type="button" disabled>Source</button>
+              <button id="explorer-refresh-trace-btn" class="secondary hidden" type="button">Refresh</button>
+              <button id="explorer-back-btn" class="secondary" type="button" disabled>Back</button>
+              <button id="copy-btn" class="secondary" type="button" disabled>Copy</button>
+            </div>
+          </div>
+          <div id="explorer-warning" class="workspace-warning hidden"></div>
+          <div id="explorer-tree" class="explorer-tree empty" role="tree" tabindex="0" aria-label="Formula dependency explorer" aria-activedescendant="">
+            <div class="empty-state">No active trace</div>
+          </div>
+          <div id="explorer-preview" class="explorer-preview hidden">
+            <div class="preview-heading"><span id="preview-kind" class="relation-label">SOURCE</span><span id="preview-address" class="preview-address"></span></div>
+            <div id="preview-formula" class="preview-formula"></div>
+            <div id="preview-value" class="preview-value"></div>
+          </div>
+          <div class="keyboard-strip" aria-label="Explorer keyboard controls">
+            <span><kbd>↑↓</kbd> Navigate</span><span><kbd>→</kbd> Expand</span><span><kbd>←</kbd> Parent</span><span><kbd>Esc</kbd> Back</span><span><kbd>R</kbd> Refresh</span><span><kbd>Enter</kbd> Accept</span>
+          </div>
+        </section>
+
+        <section id="formula-logic-card" class="analysis-view hidden">
+          <div class="workspace-header">
+            <div class="workspace-title-row"><strong id="logic-title">Formula Logic</strong><span id="logic-count" class="count-text">0</span></div>
+            <div class="actions compact-actions"><button id="logic-source-btn" class="secondary" type="button">Source</button><button id="logic-close-btn" class="secondary" type="button">Close</button></div>
+          </div>
+          <div id="logic-note" class="workspace-warning hidden"></div>
+          <div id="logic-tree" class="explorer-tree" role="tree" tabindex="0" aria-label="Formula logic explorer" aria-activedescendant=""></div>
+          <div id="logic-preview" class="explorer-preview hidden">
+            <div class="preview-heading"><span id="logic-preview-kind" class="relation-label">FORMULA</span><span id="logic-preview-address" class="preview-address"></span></div>
+            <div id="logic-preview-expression" class="preview-formula"></div>
+            <div id="logic-preview-r1c1" class="preview-value"></div>
+          </div>
+          <div class="keyboard-strip"><span><kbd>↑↓</kbd> Navigate</span><span><kbd>→</kbd> Expand</span><span><kbd>←</kbd> Parent</span><span><kbd>Enter</kbd> Jump</span><span><kbd>Esc</kbd> Close</span></div>
+        </section>
+
+        <section id="calculation-area-card" class="analysis-view hidden">
+          <div class="workspace-header">
+            <div class="workspace-title-row"><strong id="area-title">Calculation Area</strong><span id="area-count" class="count-text">0</span></div>
+            <div class="actions compact-actions"><button id="area-source-btn" class="secondary" type="button">Source</button><button id="area-close-btn" class="secondary" type="button">Close</button></div>
+          </div>
+          <div id="area-note" class="workspace-warning hidden"></div>
+          <div id="area-results" class="area-results" role="listbox" tabindex="0" aria-label="Calculation area boundary review"></div>
+          <div class="keyboard-strip"><span><kbd>↑↓</kbd> Navigate</span><span><kbd>Enter</kbd> Jump</span><span><kbd>Esc</kbd> Return</span></div>
+        </section>
+      </section>
+    </section>
+
+    <section id="panel-format" class="panel hidden">
+      <section class="flat-section">
+        <h2>Auto colour</h2>
+        <div class="scope-row" aria-label="Formatting scope">
+          <button id="format-selection" class="scope-btn primary-command" type="button">Selection</button>
+          <button id="format-sheet" class="scope-btn" type="button">Sheet</button>
+          <button id="format-workbook" class="scope-btn" type="button">Workbook</button>
+        </div>
+        <div class="options compact-options">
+          <label class="check-row"><input id="reset-local-formulas" type="checkbox" checked /><span>Same-sheet formulas <span class="arrow-text">to</span> black</span></label>
+          <label class="check-row"><input id="include-text-hardcodes" type="checkbox" /><span>Text hardcodes <span class="arrow-text">to</span> blue</span></label>
+        </div>
+        <div id="format-summary" class="inline-result muted">Choose a scope.</div>
+      </section>
+
+      <section class="flat-section">
+        <h2>Manual colour</h2>
+        <div class="manual-grid">
+          <button id="manual-blue" class="manual-btn" type="button"><span class="swatch blue"></span>Blue hardcode</button>
+          <button id="manual-green" class="manual-btn" type="button"><span class="swatch green"></span>Green off-sheet</button>
+          <button id="manual-black" class="manual-btn" type="button"><span class="swatch black"></span>Black formula</button>
+        </div>
+      </section>
+
+      <section class="flat-section" id="shortcut-box">
+        <div class="section-heading-row"><h2>Shortcuts</h2><button id="shortcut-configure-inline" class="secondary" type="button">Configure</button></div>
+        <div id="shortcut-summary-list" class="shortcut-summary-list">
+          <div class="shortcut-row"><span>Blue hardcode</span><kbd>Loading…</kbd></div>
+          <div class="shortcut-row"><span>Green off-sheet</span><kbd>Loading…</kbd></div>
+          <div class="shortcut-row"><span>Black formula</span><kbd>Loading…</kbd></div>
+        </div>
+      </section>
+    </section>
+
+    <section id="panel-audit" class="panel hidden">
+      <section class="flat-section audit-top">
+        <div class="section-heading-row">
+          <h2>Audit</h2>
+          <span id="audit-status-badge" class="audit-status neutral">Not run</span>
+        </div>
+        <div class="audit-summary-line" aria-label="Audit summary">
+          <span><strong id="kpi-critical">—</strong> Critical</span>
+          <span><strong id="kpi-high">—</strong> High</span>
+          <span><strong id="kpi-review">—</strong> Review</span>
+          <span><strong id="kpi-formulas">—</strong> Formulas</span>
+        </div>
+        <div id="audit-meta" class="meta-line">Run an audit to view findings.</div>
+        <div class="scope-row audit-scope" aria-label="Audit scope">
+          <button id="audit-workbook" class="scope-btn primary-command" type="button">Workbook</button>
+          <button id="audit-sheet" class="scope-btn" type="button">Sheet</button>
+          <button id="audit-selection" class="scope-btn" type="button">Selection</button>
+        </div>
+        <div id="audit-summary" class="inline-result muted">No audit run.</div>
+      </section>
+
+      <section class="flat-section audit-methodology">
+        <div class="section-heading-row"><h2>Checks included</h2><button id="toggle-checks" class="text-action" type="button">Show</button></div>
+        <div id="audit-checks-detail" class="audit-checks-detail hidden">
+          <div class="check-group"><strong>Formula integrity</strong><span>Errors, broken references, self-references and R1C1 consistency</span></div>
+          <div class="check-group"><strong>Workbook controls</strong><span>Calculation mode, calculation state and iterative calculation</span></div>
+          <div class="check-group"><strong>Series consistency</strong><span>Interrupted formula runs and number-format mismatches</span></div>
+          <div class="check-group"><strong>Links &amp; names</strong><span>External workbook links and invalid or external defined names</span></div>
+          <div class="check-group"><strong>Performance &amp; complexity</strong><span>Volatile functions, whole-column references and complex formulas</span></div>
+        </div>
+      </section>
+
+      <section class="flat-section results-section">
+        <div class="section-heading-row audit-results-header">
+          <div><h2>Findings</h2><div id="audit-count" class="muted small">No audit run.</div></div>
+          <div class="actions compact-actions"><button id="export-audit" class="secondary" disabled>Report</button><button id="copy-audit" class="secondary" disabled>Copy</button></div>
+        </div>
+        <div class="audit-filters">
+          <div class="severity-filter" id="severity-filter">
+            <button class="filter-tab active" data-severity="all" type="button">All</button>
+            <button class="filter-tab" data-severity="critical" type="button">Critical</button>
+            <button class="filter-tab" data-severity="high" type="button">High</button>
+            <button class="filter-tab" data-severity="medium" type="button">Medium</button>
+            <button class="filter-tab" data-severity="low" type="button">Low</button>
+          </div>
+          <select id="audit-category-filter" class="audit-select" aria-label="Filter by category">
+            <option value="all">All categories</option>
+            <option value="Formula integrity">Formula integrity</option>
+            <option value="Workbook controls">Workbook controls</option>
+            <option value="Series consistency">Series consistency</option>
+            <option value="Links &amp; names">Links &amp; names</option>
+            <option value="Performance &amp; complexity">Performance &amp; complexity</option>
+          </select>
+        </div>
+        <div id="audit-results" class="audit-results empty"><div class="empty-state">No findings</div></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="taskpane.js"></script>
+
+  <div id="shortcut-modal" class="settings-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="shortcut-dialog-title">
+    <section class="settings-dialog shortcut-dialog">
+      <div class="settings-dialog-header">
+        <h2 id="shortcut-dialog-title">Shortcut settings</h2>
+        <button id="shortcut-close" class="icon-btn" type="button" aria-label="Close shortcut settings">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3.2 8 7.1l4-3.9.8.8-4 4 4 4-.8.8-4-4-4 4-.8-.8 4-4-4-4 .8-.8Z"/></svg>
+        </button>
+      </div>
+      <div id="shortcut-support-note" class="shortcut-support-note">Checking shortcut support…</div>
+      <div class="shortcut-profile-block">
+        <label class="field-label" for="shortcut-profile-safe">Preset</label>
+        <div class="profile-buttons">
+          <button id="shortcut-profile-safe" class="secondary" type="button">Safe default</button>
+          <button id="shortcut-profile-banking" class="secondary" type="button">Banking / PF</button>
+          <button id="shortcut-reset" class="secondary" type="button">Reset</button>
+        </div>
+      </div>
+      <div class="shortcut-editor-block">
+        <div class="shortcut-editor-head"><h3>Bindings</h3><button id="shortcut-check" class="secondary" type="button">Check conflicts</button></div>
+        <div id="shortcut-editor" class="shortcut-editor"></div>
+      </div>
+      <div id="shortcut-message" class="shortcut-message muted"></div>
+      <div class="settings-dialog-actions"><button id="shortcut-cancel" class="secondary compact-action" type="button">Cancel</button><button id="shortcut-apply" class="primary compact-action" type="button">Apply</button></div>
+    </section>
+  </div>
+</body>
+</html>
