@@ -1,0 +1,497 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.28/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.28",
+  "version": "1.6.4",
+  "id": "52d8496f-004e-432a-a6b5-471ba0aadc3f",
+  "localizationInfo": {
+    "defaultLanguageTag": "en-us",
+    "additionalLanguages": []
+  },
+  "developer": {
+    "name": "Model Tracer",
+    "websiteUrl": "https://cavankohys.github.io/Excel-Tracer/web/support.html",
+    "privacyUrl": "https://cavankohys.github.io/Excel-Tracer/web/privacy.html",
+    "termsOfUseUrl": "https://cavankohys.github.io/Excel-Tracer/web/terms.html"
+  },
+  "name": {
+    "short": "Model Tracer",
+    "full": "Model Tracer for Excel"
+  },
+  "description": {
+    "short": "Formula tracing and financial-model review.",
+    "full": "Excel formula tracing, model formatting, and workbook audit tools for financial modelling."
+  },
+  "icons": {
+    "outline": "assets/outline.png",
+    "color": "assets/color.png"
+  },
+  "accentColor": "#217346",
+  "validDomains": [
+    "https://cavankohys.github.io"
+  ],
+  "authorization": {
+    "permissions": {
+      "resourceSpecific": [
+        {
+          "name": "Document.ReadWrite.User",
+          "type": "Delegated"
+        }
+      ]
+    }
+  },
+  "extensions": [
+    {
+      "requirements": {
+        "capabilities": [
+          {
+            "name": "SharedRuntime",
+            "minVersion": "1.1"
+          }
+        ],
+        "scopes": [
+          "workbook"
+        ]
+      },
+      "runtimes": [
+        {
+          "requirements": {
+            "capabilities": [
+              {
+                "name": "SharedRuntime",
+                "minVersion": "1.1"
+              },
+              {
+                "name": "AddinCommands",
+                "minVersion": "1.1"
+              }
+            ],
+            "formFactors": [
+              "desktop"
+            ]
+          },
+          "id": "SharedRuntime",
+          "type": "general",
+          "code": {
+            "page": "https://cavankohys.github.io/Excel-Tracer/web/taskpane.html",
+            "script": "https://cavankohys.github.io/Excel-Tracer/web/taskpane.js"
+          },
+          "lifetime": "long",
+          "actions": [
+            {
+              "id": "OpenModelTracer",
+              "type": "executeFunction",
+              "displayName": "Explorer"
+            },
+            {
+              "id": "ExplorePrecedents",
+              "type": "executeFunction",
+              "displayName": "Explore precedents"
+            },
+            {
+              "id": "ExploreDependents",
+              "type": "executeFunction",
+              "displayName": "Explore dependents"
+            },
+            {
+              "id": "ExplorerBack",
+              "type": "executeFunction",
+              "displayName": "Go back in Formula Explorer"
+            },
+            {
+              "id": "RecalculateWorkbook",
+              "type": "executeFunction",
+              "displayName": "Recalculate workbook values"
+            },
+            {
+              "id": "ReviewCalculationArea",
+              "type": "executeFunction",
+              "displayName": "Review Calculation Area"
+            },
+            {
+              "id": "OpenFormulaLogic",
+              "type": "executeFunction",
+              "displayName": "Open Formula Logic"
+            },
+            {
+              "id": "ColorHardcodeBlue",
+              "type": "executeFunction",
+              "displayName": "Format hardcode blue"
+            },
+            {
+              "id": "ColorOffsheetGreen",
+              "type": "executeFunction",
+              "displayName": "Format off-sheet formula green"
+            },
+            {
+              "id": "ColorFormulaBlack",
+              "type": "executeFunction",
+              "displayName": "Format formula black"
+            }
+          ]
+        }
+      ],
+      "ribbons": [
+        {
+          "requirements": {
+            "capabilities": [
+              {
+                "name": "AddinCommands",
+                "minVersion": "1.1"
+              }
+            ],
+            "scopes": [
+              "workbook"
+            ],
+            "formFactors": [
+              "desktop"
+            ]
+          },
+          "contexts": [
+            "default"
+          ],
+          "tabs": [
+            {
+              "id": "ModelTracerTab",
+              "label": "Model Tracer",
+              "keytip": "M",
+              "groups": [
+                {
+                  "id": "ModelTracerExplorerGroup",
+                  "label": "Explore",
+                  "icons": [
+                    {
+                      "size": 16,
+                      "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-16.png"
+                    },
+                    {
+                      "size": 32,
+                      "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-32.png"
+                    },
+                    {
+                      "size": 80,
+                      "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-80.png"
+                    }
+                  ],
+                  "controls": [
+                    {
+                      "id": "ModelTracerOpen",
+                      "type": "button",
+                      "label": "Explorer",
+                      "icons": [
+                        {
+                          "size": 16,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-16.png"
+                        },
+                        {
+                          "size": 32,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-32.png"
+                        },
+                        {
+                          "size": 80,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-80.png"
+                        }
+                      ],
+                      "supertip": {
+                        "title": "Explorer",
+                        "description": "Open the Model Tracer task pane."
+                      },
+                      "actionId": "OpenModelTracer",
+                      "keytip": "O",
+                      "enabled": true
+                    },
+                    {
+                      "id": "ModelTracerPrecedents",
+                      "type": "button",
+                      "label": "Precedents",
+                      "icons": [
+                        {
+                          "size": 16,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-16.png"
+                        },
+                        {
+                          "size": 32,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-32.png"
+                        },
+                        {
+                          "size": 80,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-80.png"
+                        }
+                      ],
+                      "supertip": {
+                        "title": "Precedents",
+                        "description": "Show direct precedents and navigate through the dependency tree."
+                      },
+                      "actionId": "ExplorePrecedents",
+                      "keytip": "P",
+                      "enabled": true
+                    },
+                    {
+                      "id": "ModelTracerDependents",
+                      "type": "button",
+                      "label": "Dependents",
+                      "icons": [
+                        {
+                          "size": 16,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-16.png"
+                        },
+                        {
+                          "size": 32,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-32.png"
+                        },
+                        {
+                          "size": 80,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-80.png"
+                        }
+                      ],
+                      "supertip": {
+                        "title": "Dependents",
+                        "description": "Show direct dependents and navigate through the dependency tree."
+                      },
+                      "actionId": "ExploreDependents",
+                      "keytip": "D",
+                      "enabled": true
+                    }
+                  ]
+                },
+                {
+                  "id": "ModelTracerFormattingGroup",
+                  "label": "Format",
+                  "icons": [
+                    {
+                      "size": 16,
+                      "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-16.png"
+                    },
+                    {
+                      "size": 32,
+                      "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-32.png"
+                    },
+                    {
+                      "size": 80,
+                      "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-80.png"
+                    }
+                  ],
+                  "controls": [
+                    {
+                      "id": "ModelTracerBlue",
+                      "type": "button",
+                      "label": "Blue",
+                      "icons": [
+                        {
+                          "size": 16,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-16.png"
+                        },
+                        {
+                          "size": 32,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-32.png"
+                        },
+                        {
+                          "size": 80,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-80.png"
+                        }
+                      ],
+                      "supertip": {
+                        "title": "Blue Hardcode",
+                        "description": "Apply blue font to the selected hardcode or range."
+                      },
+                      "actionId": "ColorHardcodeBlue",
+                      "keytip": "B",
+                      "enabled": true
+                    },
+                    {
+                      "id": "ModelTracerGreen",
+                      "type": "button",
+                      "label": "Green",
+                      "icons": [
+                        {
+                          "size": 16,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-16.png"
+                        },
+                        {
+                          "size": 32,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-32.png"
+                        },
+                        {
+                          "size": 80,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-80.png"
+                        }
+                      ],
+                      "supertip": {
+                        "title": "Green Off-sheet",
+                        "description": "Apply green font to the selected off-sheet formula or range."
+                      },
+                      "actionId": "ColorOffsheetGreen",
+                      "keytip": "G",
+                      "enabled": true
+                    },
+                    {
+                      "id": "ModelTracerBlack",
+                      "type": "button",
+                      "label": "Black",
+                      "icons": [
+                        {
+                          "size": 16,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-16.png"
+                        },
+                        {
+                          "size": 32,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-32.png"
+                        },
+                        {
+                          "size": 80,
+                          "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-80.png"
+                        }
+                      ],
+                      "supertip": {
+                        "title": "Black Formula",
+                        "description": "Apply black font to the selected formula or range."
+                      },
+                      "actionId": "ColorFormulaBlack",
+                      "keytip": "K",
+                      "enabled": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "keyboardShortcuts": [
+        {
+          "requirements": {
+            "capabilities": [
+              {
+                "name": "SharedRuntime",
+                "minVersion": "1.1"
+              }
+            ]
+          },
+          "shortcuts": [
+            {
+              "key": {
+                "default": "Ctrl+Shift+Alt+M",
+                "windows": "Ctrl+Shift+Alt+M",
+                "mac": "Command+Shift+Option+M",
+                "web": "Ctrl+Shift+Alt+M"
+              },
+              "actionId": "OpenModelTracer"
+            },
+            {
+              "key": {
+                "default": "Ctrl+Shift+Alt+P",
+                "windows": "Ctrl+Shift+Alt+P",
+                "mac": "Command+Shift+Option+P",
+                "web": "Ctrl+Shift+Alt+P"
+              },
+              "actionId": "ExplorePrecedents"
+            },
+            {
+              "key": {
+                "default": "Ctrl+Shift+Alt+D",
+                "windows": "Ctrl+Shift+Alt+D",
+                "mac": "Command+Shift+Option+D",
+                "web": "Ctrl+Shift+Alt+D"
+              },
+              "actionId": "ExploreDependents"
+            },
+            {
+              "key": {
+                "default": "Ctrl+Shift+Alt+Left",
+                "windows": "Ctrl+Shift+Alt+Left",
+                "mac": "Command+Shift+Option+Left",
+                "web": "Ctrl+Shift+Alt+Left"
+              },
+              "actionId": "ExplorerBack"
+            },
+            {
+              "key": {
+                "default": "Ctrl+Shift+Alt+R",
+                "windows": "Ctrl+Shift+Alt+R",
+                "mac": "Command+Shift+Option+R",
+                "web": "Ctrl+Shift+Alt+R"
+              },
+              "actionId": "RecalculateWorkbook"
+            },
+            {
+              "key": {
+                "default": "Ctrl+Shift+Alt+A",
+                "windows": "Ctrl+Shift+Alt+A",
+                "mac": "Command+Shift+Option+A",
+                "web": "Ctrl+Shift+Alt+A"
+              },
+              "actionId": "ReviewCalculationArea"
+            },
+            {
+              "key": {
+                "default": "Ctrl+Shift+Alt+L",
+                "windows": "Ctrl+Shift+Alt+L",
+                "mac": "Command+Shift+Option+L",
+                "web": "Ctrl+Shift+Alt+L"
+              },
+              "actionId": "OpenFormulaLogic"
+            },
+            {
+              "key": {
+                "default": "Ctrl+Shift+Alt+B",
+                "windows": "Ctrl+Shift+Alt+B",
+                "mac": "Command+Shift+Option+B",
+                "web": "Ctrl+Shift+Alt+B"
+              },
+              "actionId": "ColorHardcodeBlue"
+            },
+            {
+              "key": {
+                "default": "Ctrl+Shift+Alt+G",
+                "windows": "Ctrl+Shift+Alt+G",
+                "mac": "Command+Shift+Option+G",
+                "web": "Ctrl+Shift+Alt+G"
+              },
+              "actionId": "ColorOffsheetGreen"
+            },
+            {
+              "key": {
+                "default": "Ctrl+Shift+Alt+K",
+                "windows": "Ctrl+Shift+Alt+K",
+                "mac": "Command+Shift+Option+K",
+                "web": "Ctrl+Shift+Alt+K"
+              },
+              "actionId": "ColorFormulaBlack"
+            }
+          ],
+          "keyMappingFiles": {
+            "shortcutsUrl": "https://cavankohys.github.io/Excel-Tracer/web/shortcuts.json"
+          }
+        }
+      ],
+      "alternates": [
+        {
+          "alternateIcons": {
+            "icon": {
+              "size": 32,
+              "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-32.png"
+            },
+            "highResolutionIcon": {
+              "size": 64,
+              "url": "https://cavankohys.github.io/Excel-Tracer/web/assets/icon-64.png"
+            }
+          }
+        }
+      ],
+      "getStartedMessages": [
+        {
+          "requirements": {
+            "scopes": [
+              "workbook"
+            ],
+            "formFactors": [
+              "desktop"
+            ]
+          },
+          "title": "Model Tracer is ready.",
+          "description": "Use Alt > M > D for Dependents or Alt > M > P for Precedents on supported Excel builds.",
+          "learnMoreUrl": "https://cavankohys.github.io/Excel-Tracer/web/support.html"
+        }
+      ]
+    }
+  ]
+}

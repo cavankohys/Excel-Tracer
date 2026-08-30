@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+  xsi:type="TaskPaneApp">
+  <Id>52d8496f-004e-432a-a6b5-471ba0aadc3f</Id>
+  <Version>1.6.4.0</Version>
+  <ProviderName>Model Tracer</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Model Tracer"/>
+  <Description DefaultValue="Formula tracing, model formatting, and workbook audit."/>
+  <IconUrl DefaultValue="https://cavankohys.github.io/Excel-Tracer/web/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://cavankohys.github.io/Excel-Tracer/web/assets/icon-80.png"/>
+  <SupportUrl DefaultValue="https://cavankohys.github.io/Excel-Tracer/web/support.html"/>
+  <AppDomains>
+    <AppDomain>https://cavankohys.github.io/Excel-Tracer/web</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Workbook"/>
+  </Hosts>
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="ExcelApi" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://cavankohys.github.io/Excel-Tracer/web/taskpane.html?shortcuts=0"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="Support.Url"/>
+          </GetStarted>
+          <FunctionFile resid="Taskpane.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="ModelTracer.Group">
+                <Label resid="ModelTracer.GroupLabel"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16"/>
+                  <bt:Image size="32" resid="Icon.32"/>
+                  <bt:Image size="80" resid="Icon.80"/>
+                </Icon>
+                <Control xsi:type="Button" id="ModelTracer.OpenPane">
+                  <Label resid="ModelTracer.ButtonLabel"/>
+                  <Supertip>
+                    <Title resid="ModelTracer.ButtonLabel"/>
+                    <Description resid="ModelTracer.ButtonTooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16"/>
+                    <bt:Image size="32" resid="Icon.32"/>
+                    <bt:Image size="80" resid="Icon.80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16" DefaultValue="https://cavankohys.github.io/Excel-Tracer/web/assets/icon-16.png"/>
+        <bt:Image id="Icon.32" DefaultValue="https://cavankohys.github.io/Excel-Tracer/web/assets/icon-32.png"/>
+        <bt:Image id="Icon.80" DefaultValue="https://cavankohys.github.io/Excel-Tracer/web/assets/icon-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://cavankohys.github.io/Excel-Tracer/web/taskpane.html?shortcuts=0"/>
+        <bt:Url id="Support.Url" DefaultValue="https://cavankohys.github.io/Excel-Tracer/web/support.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="ModelTracer.GroupLabel" DefaultValue="Explore"/>
+        <bt:String id="ModelTracer.ButtonLabel" DefaultValue="Explorer"/>
+        <bt:String id="GetStarted.Title" DefaultValue="Model Tracer"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="ModelTracer.ButtonTooltip" DefaultValue="Trace formulas, format modelling inputs and links, and audit the workbook."/>
+        <bt:String id="GetStarted.Description" DefaultValue="Use Model Tracer to trace formulas, format models and review audit findings."/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
